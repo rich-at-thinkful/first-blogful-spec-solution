@@ -105,8 +105,10 @@ describe('Articles service object', () => {
       );
 
       it('should return existing article', () => {
-        return ArticlesService.getById(db, 3)
-          .then(article => expect(article).to.eql(testArticles.find(a => a.id === 3)));
+        const expectedArticleId = 3;
+        const expectedArticle = testArticles.find(a => a.id === expectedArticleId);
+        return ArticlesService.getById(db, expectedArticleId)
+          .then(actual => expect(actual).to.eql(expectedArticle));
       });
     });
   });
