@@ -167,15 +167,17 @@ describe('Articles service object', () => {
       );
 
       it('should return 1 row affected and record is removed from db', () => {
+        const deletedArticleId = 1;
+
         return ArticlesService
-          .deleteArticle(db, 1)
+          .deleteArticle(db, deletedArticleId)
           .then(rowsAffected => {
             expect(rowsAffected).to.eq(1);
             return db('blogful_articles').select('*');
           })
           .then(actual => {
             // copy testArticles array with id 1 filtered out
-            const expected = testArticles.filter(a => a.id !== 1);
+            const expected = testArticles.filter(a => a.id !== deletedArticleId);
             expect(actual).to.eql(expected);
           });
       });
